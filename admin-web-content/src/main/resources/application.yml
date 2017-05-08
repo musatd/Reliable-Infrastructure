@@ -1,0 +1,17 @@
+spring.thymeleaf.cache: false
+spring.thymeleaf.mode: LEGACYHTML5
+
+# Spring properties
+spring:
+  application:
+     name: admin-web-content
+
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+
+# HTTP Server
+server:
+  port: 8080   # HTTP (Tomcat) port

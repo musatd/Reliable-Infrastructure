@@ -1,0 +1,17 @@
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/client/ClientController.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/client/ClientRepository.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/alert/AlertController.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/client/User.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/EntitiesControllers.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/alert/AlertRepository.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/util/UtilMethods.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/util/AlertClientPk.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/client/Client.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/city/CityController.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/util/Util.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/city/CityRepository.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/util/WorkerThread.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/util/AlertClient.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/alert/Alert.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/city/City.java
+/home/musat/Facultate/Licenta/ReliableInfrastructure/entities-controllers/src/main/java/org/reliable/infrastructure/entities_controllers/alert/Message.java
