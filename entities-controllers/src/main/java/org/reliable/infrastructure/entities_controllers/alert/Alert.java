@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.reliable.infrastructure.entities_controllers.city.City;
 import org.reliable.infrastructure.entities_controllers.util.AlertClient;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -127,9 +128,5 @@ public class Alert {
 		return "Alert [idalert=" + idalert + ", timestamp=" + timestamp + ", message=" + message + ", priority="
 				+ priority + "]";
 	}
-	
-	
-	
-	
 	
 }

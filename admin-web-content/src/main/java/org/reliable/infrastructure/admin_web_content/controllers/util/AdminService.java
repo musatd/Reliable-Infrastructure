@@ -1,5 +1,6 @@
 package org.reliable.infrastructure.admin_web_content.controllers.util;
 
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -13,10 +14,9 @@ public class AdminService {
 	@Autowired
 	@LoadBalanced
 	private RestTemplate restTemplate;
-	
+
 	@Autowired
 	private Util util;
-
 	private String serviceUrl;
 
 	private Logger logger = Logger.getLogger(AdminService.class.getName());

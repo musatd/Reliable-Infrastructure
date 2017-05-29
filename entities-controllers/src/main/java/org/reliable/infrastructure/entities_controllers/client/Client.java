@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.reliable.infrastructure.entities_controllers.city.City;
 import org.reliable.infrastructure.entities_controllers.util.AlertClient;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity

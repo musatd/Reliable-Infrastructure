@@ -77,11 +77,10 @@ public class AlertController {
 		List<AlertClient> notifications = util.createAlertClientAssociations(alert, subscribedClients);
 		alert.setAlertClients(notifications);
 		
-		
 		logger.info("alertRepository save() invoked: " + alertRepository);
 		Alert savedAlert = alertRepository.save(alert);
 		logger.info("alertRepository save() found: " + savedAlert);
-		
+
 		if (savedAlert == null) {
 			return false;
 		}

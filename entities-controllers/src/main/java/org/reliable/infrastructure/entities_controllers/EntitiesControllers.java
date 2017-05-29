@@ -15,5 +15,4 @@ public class EntitiesControllers {
     public static void main( String[] args ) {
     	SpringApplication.run(EntitiesControllers.class, args);
     }
-    
 }

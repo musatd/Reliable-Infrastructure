@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import org.reliable.infrastructure.entities_controllers.alert.Alert;
 import org.reliable.infrastructure.entities_controllers.client.Client;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
