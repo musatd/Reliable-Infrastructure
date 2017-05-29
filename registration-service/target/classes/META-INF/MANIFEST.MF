@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: registration-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: musat
+Implementation-Vendor-Id: org.reliable.infrastructure
+Build-Jdk: 1.8.0_121
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
