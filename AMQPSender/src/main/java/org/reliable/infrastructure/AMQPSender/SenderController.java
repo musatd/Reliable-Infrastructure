@@ -17,14 +17,12 @@ public class SenderController {
 	private Logger logger = Logger.getLogger(SenderController.class.getName());
 	
 	@RequestMapping(value = "/amqpSender/sendAlerts", produces = MediaType.APPLICATION_JSON_VALUE, consumes="application/json")
-    public Boolean receiveAlert(@RequestBody Notifications notifications) throws Exception {
+    public void receiveAlert(@RequestBody Notifications notifications) throws Exception {
 		
 		logger.info("sender-service sendDataToRabbitMQServer() invoked: for " + notifications);
 		senderService.sendDataToRabbitMQServer(notifications);
 		logger.info("sender-service sendDataToRabbitMQServer() finished successfully");		
 		
-		
-        return true;
     }
 
 }

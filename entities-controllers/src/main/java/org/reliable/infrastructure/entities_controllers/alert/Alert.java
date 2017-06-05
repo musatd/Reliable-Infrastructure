@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,6 @@ import javax.persistence.Table;
 
 import org.reliable.infrastructure.entities_controllers.city.City;
 import org.reliable.infrastructure.entities_controllers.util.AlertClient;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -59,7 +59,7 @@ public class Alert {
 	@JsonIgnore
 	private List<City> cities;
 	
-	@OneToMany(mappedBy = "pk.alert", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.alert", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<AlertClient> alertClients;
 	
 	public Alert() {}

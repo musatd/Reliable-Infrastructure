@@ -1,5 +1,6 @@
 package org.reliable.infrastructure.entities_controllers.alert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -7,6 +8,7 @@ import org.reliable.infrastructure.entities_controllers.city.City;
 import org.reliable.infrastructure.entities_controllers.city.CityRepository;
 import org.reliable.infrastructure.entities_controllers.client.Client;
 import org.reliable.infrastructure.entities_controllers.client.ClientRepository;
+import org.reliable.infrastructure.entities_controllers.util.ACKData;
 import org.reliable.infrastructure.entities_controllers.util.AlertClient;
 import org.reliable.infrastructure.entities_controllers.util.EntitiesService;
 import org.reliable.infrastructure.entities_controllers.util.Util;
@@ -85,15 +87,59 @@ public class AlertController {
 			return false;
 		}
 		
-		logger.info("updateAlert() has been called");
-		entitiesService.updateAlert(savedAlert);
-		logger.info("updateAlert() ended");
-		
-		logger.info("entitiesService sendNotificationsToRabbitEntryPoint() invoked: " + savedAlert);
-		entitiesService.sendNotificationsToRabbitEntryPoint(savedAlert);
-		logger.info("entitiesService sendNotificationsToRabbitEntryPoint() ended");
+		entitiesService.broadcastNotifications(savedAlert);
 		
 		return true;
+	}
+	
+	
+	/**
+	 * Retrieve all alerts that a client subscribed for and send them
+	 * to the mobile application of the client
+	 * 
+	 * @param token of the client, used to retrieve alerts associated with token
+	 * @return alerts from the cities the client subscribed to
+	 */
+	@RequestMapping(value = "/alerts/getClientAlerts", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<String> getClientAlerts(@RequestBody String token) {
+		token = token.substring(1, token.length() - 1);
+		logger.info("received token: " + token);
+		
+		List<Alert> alerts = alertRepository.getClientAlerts(token);
+		
+		logger.info("for received token the next alerts were found: " + alerts);
+		int size = alerts.size();
+		List<String> alertMessages = new ArrayList<String>();
+		
+		for (int i = 0; i < size; i++) {
+			alertMessages.add(alerts.get(i).getMessage());
+		}
+		
+		return alertMessages;
+	}
+	
+	
+	/**
+	 * The function receives acknowledge of the alert sent by the client and delete 
+	 * that entry from AlertClient database table
+	 * 
+	 * @param ackData represents the information sent by the client as part of acknowledge 
+	 * 			and which is needed to delete the alert-client entry from AlertClient database table
+	 */
+	@RequestMapping(value = "/alerts/sendACK")
+	public void receiveACK(@RequestBody ACKData ackData) {
+		String token = ackData.getToken();
+		logger.info("clientRepository byToken() invoked: " + token);
+		Client foundClient = clientRepository.findByToken(token);
+		logger.info("clientRepository byToken() found: " + foundClient);
+		
+		Long idAlert = ackData.getIdAlert();
+		Long idClient = foundClient.getIdclient();
+		
+		alertRepository.deleteAlertClient(idAlert, idClient);
+		
+		logger.info("The entry from AlertClient database table with idAlert: " + idAlert + 
+						" and idClient: " + idClient + " was deleted");
 	}
 
 }

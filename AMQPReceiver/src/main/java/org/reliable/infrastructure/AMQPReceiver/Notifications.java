@@ -3,7 +3,7 @@ package org.reliable.infrastructure.AMQPReceiver;
 import java.util.List;
 
 public class Notifications {
-	private Integer idalert;
+	private Long idalert;
 	private String notificationType;
 	private String message;
 	private String priority;
@@ -14,7 +14,7 @@ public class Notifications {
 	public Notifications() {}
 	
 
-	public Notifications(Integer idalert, String notificationType, String message, String priority, List<String> tokens,
+	public Notifications(Long idalert, String notificationType, String message, String priority, List<String> tokens,
 																	List<String> phoneNumbers) {
 		this.idalert = idalert;
 		this.notificationType = notificationType;
@@ -25,11 +25,11 @@ public class Notifications {
 	}
 
 
-	public Integer getIdalert() {
+	public Long getIdalert() {
 		return idalert;
 	}
 
-	public void setIdalert(Integer idalert) {
+	public void setIdalert(Long idalert) {
 		this.idalert = idalert;
 	}
 

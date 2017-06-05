@@ -41,7 +41,7 @@ public class Util {
 		client.setPhone(user.getPhone());
 		List<String> selectedRegions = user.getCities();
 		
-		if (selectedRegions != null) {
+		if (selectedRegions != null && !selectedRegions.isEmpty()) {
 			logger.info("cityRepository getByNameInList() invoked: for " + selectedRegions);
 			List<City> subscribedCities = cityRepository.getByNameInList(selectedRegions);
 			logger.info("cityRepository getByNameInList() found: " + subscribedCities);

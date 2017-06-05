@@ -12,9 +12,9 @@ import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 
 
-public class PushNotificationTask extends Task{
+public class PushNotificationTask extends Task {
 	
-    private final static String AUTH_KEY_FCM = "AAAAo8JQZUc:APA91bFWRrDSogQq45LJI6hrjFDGReDBhyMyrJyQScznfNE5iTQ1wXbQlNeNkhwKSLiigEn-6ZiYo3zGTRbkwwW6Ov1ER2fjnSSHeXTqMyUMJrK3foQbWIKl9cJQXaK5FcgKLCbQPrld";
+    private final static String AUTH_KEY_FCM = "AAAAGp4fPC0:APA91bFKJ0HI-CAw6n7YeE6wNOjn7z5qw1ElB-S9Rl-1V52YuIvNLzoobwOoWTKKOXJ7SvG0Jzat53YA4mFSYhQdUboEIWqatls9sOvjAPX8WJlax_1foA1knNd3E-1L8cOjNTaxNld6";
     private final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 	
 
@@ -36,21 +36,15 @@ public class PushNotificationTask extends Task{
 		        conn.setRequestProperty("Content-Type", "application/json");
 		        
 		        
-		        /* Topic response
-		         * Response Code : 200
-					{"message_id":9149783501663843852}
-		         */
 		        List<String> registration_ids = notifications.getTokens();
-		        //registration_ids.add("d2IHkqkbZJc:APA91bF6d5LZuy1W6Ozf4mNl3e86Kf5CT3Tu8law80J_2dBbpZoGPJK9zlmzoPxR6m7QyMimV6zKBzczwxaDJicpCIE1IWCat_bu_ImVKkuoIo1AlSr4yfU53oxyLKUqj612Hh1b3NCe");
-		        //registration_ids.add("cHrGVJ-Hetc:APA91bHOblkp4gLyToq_m0cs87jPCO82gDty1lV12v3d4sZqmAT73U5ZIGVl02GWejUB4NtoGRa_z3GpAF9v4PBXPKztZ38fA4popWnTNhUanxICtjTjBENGKrFPxU3hT-R47wgJ-_T3");
-
+		        
 		        JSONObject request = new JSONObject();
 		        request.put("registration_ids", registration_ids);
 		        
 		        JSONObject data = new JSONObject();
 		        data.put("title", "Reliable Infrastructure"); // Notification title
 		        data.put("subTitle", "O noua alerta s-a produs"); // Notification body
-		        data.put("click_action", "com.google.firebase.quickstart.fcm.SecondActivity");
+		        data.put("idalert", notifications.getIdalert());
 		        data.put("body", notifications.getMessage());
 		        request.put("data", data);
 

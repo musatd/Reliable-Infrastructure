@@ -1,7 +1,9 @@
 package org.reliable.infrastructure.AMQPReceiver;
 
 import org.reliable.infrastructure.AMQPReceiver.messagesTasks.Task;
+import org.reliable.infrastructure.AMQPReceiver.messagesTasks.CallTask;
 import org.reliable.infrastructure.AMQPReceiver.messagesTasks.PushNotificationTask;
+import org.reliable.infrastructure.AMQPReceiver.messagesTasks.SMSTask;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,9 +19,9 @@ public class Util {
 		if (type.equals(PUSH_NOTIFICATIONS_CODE)) {
 			return new PushNotificationTask();
 		} else if (type.equals(SMS_CODE)) {
-			return null;
+			return new SMSTask();
 		} else if (type.equals(CALL_CODE)) {
-			return null;
+			return new CallTask();
 		} else {
 			throw new Exception("This type: " + type + " is not recognized");
 		}

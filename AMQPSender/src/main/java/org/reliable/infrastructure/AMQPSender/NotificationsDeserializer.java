@@ -29,11 +29,10 @@ public class NotificationsDeserializer extends StdDeserializer<Notifications> {
 			throws IOException, JsonProcessingException {
 		
 		JsonNode node = p.getCodec().readTree(p);
-		Integer idalert = (Integer) ((IntNode) node.get("idalert")).numberValue();
+		Long idalert = new Long((Integer)((IntNode) node.get("idalert")).numberValue());
 		String message = node.get("message").asText();
 		String priority = node.get("priority").asText();
 		String status = node.get("alertClients").findValue("status").asText();
-		System.out.println(idalert + " " + message + " " + priority + " " + status);
 		List<String> tokens = new ArrayList<>();
 		List<String> phoneNumbers = new ArrayList<>();
 		
