@@ -133,6 +133,11 @@ public class AlertController {
 		Client foundClient = clientRepository.findByToken(token);
 		logger.info("clientRepository byToken() found: " + foundClient);
 		
+		if (foundClient == null) {
+			logger.info("No client with token: " + token + " was found");
+			return;
+		}
+		
 		Long idAlert = ackData.getIdAlert();
 		Long idClient = foundClient.getIdclient();
 		
@@ -141,5 +146,44 @@ public class AlertController {
 		logger.info("The entry from AlertClient database table with idAlert: " + idAlert + 
 						" and idClient: " + idClient + " was deleted");
 	}
-
+	
+/*
+		//@ResponseStatus(value = HttpStatus.SC_NO_CONTENT)
+	@RequestMapping(value = "/SMSStatus", method = RequestMethod.POST, produces = "text/xml")
+	@ResponseBody
+	public String processSms(@RequestParam(value = "MessageStatus", required = false) String messageStatus,
+	                       @RequestParam(value = "ApiVersion", required = false) String apiVersion,
+	                       @RequestParam(value = "SmsSid", required = false) String smsSid,
+	                       @RequestParam(value = "SmsStatus", required = false) String smsStatus,
+	                       @RequestParam(value = "To", required = false) String to,
+	                       @RequestParam(value = "From", required = false) String from,
+	                       @RequestParam(value = "MessageSid", required = false) String messageSid,
+	                       @RequestParam(value = "AccountSid", required = false) String accountSid) {
+		
+		logger.info("MessageStatus: " + messageStatus);
+		logger.info("ApiVersion: " + apiVersion);
+		logger.info("SmsSid: " + smsSid);
+		logger.info("SmsStatus: " + smsStatus);
+		logger.info("To: " + to);
+		logger.info("From: " + from);
+		logger.info("MessageSid: " + messageSid);
+		logger.info("AccountSid: " + accountSid);
+	/*
+	    TwilioCallBackResponse response = new TwilioCallBackResponse();
+	    response.messageStatus = messageStatus;
+	    response.apiVersion = apiVersion;
+	    response.smsSid = smsSid;
+	    response.smsStatus = smsStatus;
+	    response.to = to;
+	    response.from = from;
+	    response.messageSid = messageSid;
+	    response.accountSid = accountSid;
+	
+	    //LOG.info("Incomming twilio callback: " + JsonUtils.printJson(response));
+	
+	    //smsService.processSmsCallback(response);
+	
+	    return "<Response/>";
+	}
+*/
 }

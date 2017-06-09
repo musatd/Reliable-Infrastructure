@@ -26,6 +26,8 @@ public class Util {
 	public static final String STATUS_CALL = "3";
 	public static final String STATUS_END = "4";
 	
+	private static final String NUMBER_PREFIX = "+4";
+	
 	private Logger logger = Logger.getLogger(Util.class.getName());
 	private static final Integer CHUNK = 1000;
 	private static final Integer NR_THREADS = 5;
@@ -38,7 +40,7 @@ public class Util {
 	 */
 	public void prepareClientForSave(Client client, User user) {
 		client.setToken(user.getToken());
-		client.setPhone(user.getPhone());
+		client.setPhone(NUMBER_PREFIX + user.getPhone());
 		List<String> selectedRegions = user.getCities();
 		
 		if (selectedRegions != null && !selectedRegions.isEmpty()) {

@@ -12,6 +12,8 @@ public interface ClientRepository extends CrudRepository<Client, Integer>{
 
 	public Client findByToken(String token);
 	
+	public Client findByPhone(String phone);
+	
 	@Transactional
     public Long deleteByToken(String token);
 	

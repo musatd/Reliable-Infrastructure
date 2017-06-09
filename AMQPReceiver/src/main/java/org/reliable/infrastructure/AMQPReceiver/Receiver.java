@@ -19,6 +19,7 @@ public class Receiver {
 	
 	@Autowired
 	private Util util;
+	
 
     @RabbitHandler
     public void receive(String message) throws Exception {

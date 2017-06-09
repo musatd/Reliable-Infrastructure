@@ -19,6 +19,6 @@ public abstract class Task {
 
 	@Override
 	public String toString() {
-		return "PushNotificationTask [notifications=" + notifications + "]";
+		return "Task [notifications=" + notifications + "]";
 	}
 }

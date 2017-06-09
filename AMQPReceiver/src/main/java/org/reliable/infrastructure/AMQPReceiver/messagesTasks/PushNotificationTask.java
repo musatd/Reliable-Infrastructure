@@ -8,18 +8,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 
-
+@Component
 public class PushNotificationTask extends Task {
 	
     private final static String AUTH_KEY_FCM = "AAAAGp4fPC0:APA91bFKJ0HI-CAw6n7YeE6wNOjn7z5qw1ElB-S9Rl-1V52YuIvNLzoobwOoWTKKOXJ7SvG0Jzat53YA4mFSYhQdUboEIWqatls9sOvjAPX8WJlax_1foA1knNd3E-1L8cOjNTaxNld6";
     private final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
+    
+    private String SUBTITLE = "O noua alerta s-a produs";
 	
 
 	public void startTask() {
-		// TODO Auto-generated method stub
 		String authKey = AUTH_KEY_FCM; // You FCM AUTH key
         String FMCurl = API_URL_FCM;
 
@@ -42,8 +45,8 @@ public class PushNotificationTask extends Task {
 		        request.put("registration_ids", registration_ids);
 		        
 		        JSONObject data = new JSONObject();
-		        data.put("title", "Reliable Infrastructure"); // Notification title
-		        data.put("subTitle", "O noua alerta s-a produs"); // Notification body
+		        data.put("title", "Reliable Infrastructure");
+		        data.put("subTitle", SUBTITLE);
 		        data.put("idalert", notifications.getIdalert());
 		        data.put("body", notifications.getMessage());
 		        request.put("data", data);
@@ -70,6 +73,21 @@ public class PushNotificationTask extends Task {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}     
+	}
+
+
+	public String getSUBTITLE() {
+		return SUBTITLE;
+	}
+
+
+	public void setSUBTITLE(String SUBTITLE) {
+		this.SUBTITLE = SUBTITLE;
+	}
+	
+	@Override
+	public String toString() {
+		return "PushNotificationTask [notifications=" + notifications + "]";
 	}
 
 }
