@@ -32,7 +32,7 @@ public interface AlertRepository extends CrudRepository<Alert, Integer>{
 	public void deleteAlertClient(@Param("idalert") Long idalert, @Param("idclient") Long idclient);
 	
 	@Query("SELECT alert FROM Alert alert WHERE alert.timestamp < (:timestamp) AND "
-			+ "									EXISTS (SELECT alertClient.status FROM alert.alertClients alertClient WHERE alertClient.status != 2)")
+			+ "									EXISTS (SELECT alertClient.status FROM alert.alertClients alertClient WHERE alertClient.status != 3)")
 	public List<Alert> getExpiredAlerts(@Param("timestamp") Timestamp timestamp);
 	
 	

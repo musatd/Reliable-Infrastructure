@@ -15,11 +15,11 @@ import com.twilio.type.PhoneNumber;
 @Component
 public class SMSTask extends Task {
 	private static final String ACCOUNT_SID = "ACb523b993ffb15605a535912c6f07c288";
-	private static final String AUTH_TOKEN = "055f88bb347345c2fee5184ce32dfa16f";
+	private static final String AUTH_TOKEN = "55f88bb347345c2fee5184ce32dfa16f";
 	private static final String FROM = "+18312641642";
 	private static final String TO = "+15005550003";
 	private static final String ADMIN_NUMBER = "+40747375387";
-	private static final String STATUS_CALLBACK = "http://05a05911.ngrok.io/SMSStatus";
+	private static final String STATUS_CALLBACK = "http://9b31360b.ngrok.io/SMSStatus";
 
 	private Logger logger = Logger.getLogger(SMSTask.class.getName());
 	

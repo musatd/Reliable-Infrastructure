@@ -2,6 +2,8 @@ package org.reliable.infrastructure.entities_controllers.sidAlert;
 
 import java.util.logging.Logger;
 
+import javax.xml.soap.SOAPException;
+
 import org.reliable.infrastructure.entities_controllers.alert.AlertRepository;
 import org.reliable.infrastructure.entities_controllers.client.Client;
 import org.reliable.infrastructure.entities_controllers.client.ClientRepository;
@@ -14,10 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.twilio.twiml.Play;
+import com.twilio.twiml.TwiMLException;
+import com.twilio.twiml.VoiceResponse;
+
 @RestController
 public class SidAlertController {
 	
 	private Logger logger = Logger.getLogger(SidAlertController.class.getName());
+	private static final String CALL_MESSAGE = "We were not able to reach you via push notification"
+												+ " and SMS. Please check your application's settings";
+
+	private static final String RECORDED_MESSAGE = "http://9b31360b.ngrok.io/alerta.mp3";
 	
 	@Autowired
 	private SidAlertRepository sidAlertRepository;
@@ -72,27 +82,81 @@ public class SidAlertController {
 			return "<Response/>"; 
 		}
 		
-		SidAlert sidAlert = sidAlertRepository.findBySid(smsSid);
+		return deleteEntry(smsSid, to);
+	}
+	
+	
+	/**
+	 * Build the message which will be used by twilio in the phone call
+	 * @return the information to be played to the client
+	 * @throws SOAPException
+	 * @throws TwiMLException
+	 */
+	@RequestMapping(value = "/sidAlert/mobileVoice", produces=MediaType.APPLICATION_XML_VALUE)
+	public String mobileVoiceMessage() throws SOAPException, TwiMLException {
+		VoiceResponse voiceTwimlResponse = new VoiceResponse.Builder()
+                //.say(new Say.Builder(CALL_MESSAGE).voice(Voice.MAN).language(Language.EN).build())
+				.play(new Play.Builder(RECORDED_MESSAGE).build())
+                .build();
+		
+		return voiceTwimlResponse.toXml();
+	}
+	
+	
+	/**
+	 * Receives call statuses along its way to the recipient
+	 * @param callSid unique id of the call
+	 * @param callStatus current status of the call
+	 * @param to the recipient of the call
+	 * @param from the initiator of the call
+	 * @return an empty message
+	 */
+	@RequestMapping(value = "/CallStatus", method = RequestMethod.POST, produces = "text/xml")
+	@ResponseBody
+	public String processCall(@RequestParam(value = "CallSid", required = false) String callSid,
+	                       @RequestParam(value = "CallStatus", required = false) String callStatus,
+	                       @RequestParam(value = "To", required = false) String to,
+	                       @RequestParam(value = "From", required = false) String from) {
+		
+		logger.info("CallStatus: " + callStatus);
+		logger.info("CallSid: " + callSid);
+		logger.info("To: " + to);
+		logger.info("From: " + from);
+		
+		if (!callStatus.equals("completed") && !callStatus.equals("busy")) {
+			return "<Response/>"; 
+		}
+		
+		
+		
+		return deleteEntry(callSid, to);
+	}
+	
+	
+	private String deleteEntry(String sid, String toPhoneNumber) {
+		
+		SidAlert sidAlert = sidAlertRepository.findBySid(sid);
 		if (sidAlert == null) {
-			logger.info("No entry with sid: " + smsSid + " was found");
+			logger.info("No entry with sid: " + sid + " was found");
 			return "<Response/>";
 		}
 		
-		Client client = clientRepository.findByPhone(to);
+		Client client = clientRepository.findByPhone(toPhoneNumber);
 		if (client == null) {
-			logger.info("No client with phoneNumber: " + to + " was found");
+			logger.info("No client with phoneNumber: " + toPhoneNumber + " was found");
 		}
 		
 		Long idAlert = sidAlert.getIdalert();
 		Long idClient = client.getIdclient();
 		
 		alertRepository.deleteAlertClient(idAlert, idClient);
-		sidAlertRepository.deleteBySid(smsSid);
+		sidAlertRepository.deleteBySid(sid);
 		
 		logger.info("The entry from AlertClient database table with idAlert: " + idAlert + 
 						" and idClient: " + idClient + " was deleted");
-	
-	    return "<Response/>";
+		
+		return "<Response/>";
 	}
+	
 	
 }
